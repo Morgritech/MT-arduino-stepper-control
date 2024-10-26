@@ -8,40 +8,32 @@
 
 #include <stepper_driver.h>
 
-/// @{
-/// @brief GPIO pins.
-const uint8_t kPulPin = 11; ///< For the stepper driver PUL/STP/CLK (pulse/step) interface.
-const uint8_t kDirPin = 12; ///< For the stepper driver DIR/CW (direction) interface.
-const uint8_t kEnaPin = 13; ///< For the stepper driver ENA/EN (enable) interface.
-/// @}
+// GPIO pins.
+const uint8_t kPulPin = 11; ///< Output pin for the stepper driver PUL/STP/CLK (pulse/step) interface.
+const uint8_t kDirPin = 12; ///< Output pin for the stepper driver DIR/CW (direction) interface.
+const uint8_t kEnaPin = 13; ///< Output pin for the stepper driver ENA/EN (enable) interface.
 
-/// @brief Serial properties.
+// Serial properties.
 const int kBaudRate = 9600; ///< The serial communication speed.
 
-/// @{
-/// @brief Stepper motor/drive system properties.
-const float kFullStepAngle_degrees = 1.8F; ///< The full step angle in degrees. Obtained from the motor data sheet.
-const float kGearRatio = 1.0F; ///< The gear ratio (1 if not using a gearing system or a geared stepper motor).
-/// @}
+// Stepper motor/drive system properties.
+const float kFullStepAngle_degrees = 1.8F; ///< The stepper motor full step angle in degrees. Obtained from the motor data sheet.
+const float kGearRatio = 1.0F; ///< The system/stepper motor gear ratio (1 if not using a gearing system or a geared stepper motor).
 
-/// @{
-/// @brief Stepper driver properties.
+// Stepper driver properties.
 const uint16_t kMicrostepMode = 8; ///< Microstep mode (1/8). Remember to change the setting on the stepper driver to match.
-/// Minimum time (us) to delay after changing the state of a pin. Obtained from the stepper driver data sheet.
-/// These values are for the StepperOnline DM542T stepper driver, but should work for most stepper drivers.
-const float kPulDelay_us = 2.5F; ///< For the PUL pin.
-const float kDirDelay_us = 5.0F; ///< For the Dir pin.
-const float kEnaDelay_us = 5.0F; ///< For the Ena pin.
-/// Sweep angle during oscillation.
-const float kSweepAngle_degrees = 180.0F; // 90 degrees sweep angle.
-/// Speed.
+// Minimum time (us) to delay after changing the state of a pin. Obtained from the stepper driver data sheet.
+// These values are for the StepperOnline DM542T stepper driver, but should work for most stepper drivers.
+const float kPulDelay_us = 2.5F; ///< Minimum delay (us) for the stepper driver PUL pin.
+const float kDirDelay_us = 5.0F; ///< Minimum delay (us) for the stepper driver Dir pin.
+const float kEnaDelay_us = 5.0F; ///< Minimum delay (us) for the stepper driver Ena pin.
+// Sweep angle during oscillation.
+const float kSweepAngle_degrees = 180.0F; ///< 90 degrees sweep angle.
+// Speed.
 const float kSpeed_RPM = 20.0; ///< Rotation speed (RPM).
-/// @}
 
-/// @{
-/// @brief Other properties.
+// Other properties.
 const uint16_t kStartupTime_ms = 1000; ///< Minimum startup/boot time in milliseconds (ms); based on the stepper driver.
-/// @}
 
 /// @brief Stepper Driver instance for the stepper motor.
 mt::StepperDriver stepper_driver(kPulPin, kDirPin, kEnaPin, kMicrostepMode, kFullStepAngle_degrees, kGearRatio);
