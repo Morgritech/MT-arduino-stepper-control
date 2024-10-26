@@ -202,8 +202,7 @@ class StepperDriver {
   /// @brief Reset the debug helper.
   void ResetDebugHelperForMoveByAngle();
 
-  /// @{
-  /// @brief Pre-calculated unit conversion constants.
+  // Pre-calculated unit conversion constants.
   double k180DividedByProductOfPiAndMicrostepAngleDegrees_; ///< 180 / (pi x microstep angle in degrees)
   float k6DividedByMicrostepAngleDegrees_; ///< 6 / microstep angle in degrees
   float k360DividedByMicrostepAngleDegrees_; ///< 360 / microstep angle in degrees
@@ -213,48 +212,39 @@ class StepperDriver {
   /// @brief Default acceleration algorithm.
   AccelerationAlgorithm acceleration_algorithm_ = AccelerationAlgorithm::kMorgridge24;
 
-  /// @{
-  /// @brief Output pins.
+  // Output pins.
   uint16_t pul_pin_; ///< PUL/STP/CLK (pulse/step/clock) pin.
   uint16_t dir_pin_; ///< DIR/CW (direction) pin.
   uint16_t ena_pin_; ///< ENA/EN (enable) pin.
-  /// @}
-
-  /// @{
-  /// @brief Default pin states.
+ 
+  // Default pin states.
   PinState ena_pin_enabled_state_ = PinState::kLow; ///< The ENA pin state when the motor is enabled (powered).
   PinState ena_pin_disabled_state_ = PinState::kHigh; ///< The ENA pin state when motor is disabled (not powered).
   PinState dir_pin_positive_direction_state_ = PinState::kHigh; ///< The DIR pin state for positive motion direction.
   PinState dir_pin_negative_direction_state_ = PinState::kLow; ///< The DIR pin state for negative motion direction.
-  /// @}
 
-  /// @{
-  /// @brief Motor drive system properties.
+  // Motor drive system properties.
   float full_step_angle_degrees_; ///< Motor full step angle in degrees.
   float gear_ratio_; ///< Gear ratio for motors coupled with a gearbox in the drive system.
   float microstep_angle_degrees_; ///< microstep angle = full step angle in degrees / (gear ratio x microstep mode)
-  /// @}
 
-  /// @{
-  /// @brief Stepper driver properties.
+  // Stepper driver properties.
   uint16_t microstep_mode_; ///< Microstep mode.
   uint8_t pul_delay_us_ = 1; ///< Minimum time (us) to delay after a low or high-level pulse of the PUL pin.
   uint8_t dir_delay_us_ = 5; ///< Minimum time (us) to delay after changing direction via the DIR pin.
   uint8_t ena_delay_us_ = 5; ///< Minimum time (us) to delay after changing the power state via the ENA pin.
-  /// @}
 
-  /// @{
-  /// @brief Motor states and targets.
-  /// Power.
+  // Motor states and targets.
+  // Power.
   PowerState power_state_ = PowerState::kEnabled; ///< Power state based on the ENA/EN pin.
-  /// Position/distance.
+  // Position/distance.
   uint32_t angular_position_microsteps_ = 0; ///< The current angular position (microsteps).
   uint32_t relative_angle_to_move_microsteps_ = 0; ///< Target distance/angle (microsteps) to move the motor relative to the current angular position.
   uint32_t relative_angle_to_move_in_flux_microsteps_ = 0; ///< The distance/angle (microsteps) to move that is reducing due to the motor moving.
   int8_t angular_position_updater_microsteps_ = 1; ///< Value (microsteps) to increment/decrement the current angular position depending on motor motion direction based on the DIR/CW pin.
   uint32_t angle_after_acceleration_microsteps_ = 0; ///< Expected distance/angle (microsteps) remaining after acceleration has completed.
   uint32_t angle_after_constant_speed_microsteps_ = 0; ///< Expected distance/angle (microsteps) remaining after constant speed motion has completed.
-  /// Speed.
+  // Speed.
   float speed_microsteps_per_s_ = 0.0; ///< Target speed (microsteps/s).
   //float speed_achievable_microsteps_per_s_ = 0.0; ///< Achievable speed based on the set acceleration and travel distance/angle (microsteps/s).
   uint32_t microstep_period_us_ = 100000.0; ///< Target speed based on the microstep period (us) between microsteps.
@@ -270,26 +260,25 @@ class StepperDriver {
   float v0_ = 0.0; ///< Base speed (microsteps/s) used to calculate the initial value of p. Eiderman '04.
   uint32_t microstep_period_in_flux_us_ = 0.0; ///< The microstep period (us) that is changing due to acceleration/deceleration.
   uint64_t reference_microstep_time_us_ = 0; ///< Reference time (us) for the microstep period.
-  /// Acceleration.
+  // Acceleration.
   float acceleration_microsteps_per_s_per_s_ = 0.0; ///< Target acceleration (microsteps/s^2).
   uint64_t reference_microstep_flux_time_us_ = 0; ///< Reference time (us) for the microstep period in flux.
   // Motion phase constants.
   int8_t K_ = 1; ///< Constant multiplier. (+1 for acceleration, 0 in-between, -1 for deceleration). Morgridge '24.
   float R_ = 0.0; ///< Constant multiplier. Eiderman '04.
   float m_ = 0.0; ///< Variable multiplier that depends on movement phase (m_ = -R_ for acceleration, 0 in-between, R_ for deceleration). Eiderman '04.
-  /// Other.
+  // Other.
   MotionStatus motion_status_ = MotionStatus::kIdle; ///< The status of the move (by angle) operation.
   MotionDirection jog_direction_ = MotionDirection::kNeutral; ///< The direction of the move (by jogging) operation.
   uint32_t i_ = 1; ///< Iteration counter. Morgridge '24/Eiderman '04.
   float q_ = 0.0; ///< Variable to calculate a more accurate value of p at the expense of processing overhead (i.e., slower). Eiderman '04.
   int32_t n_ = 0; ///< Iteration counter. Also depends on movement phase (n > 0 for acceleration, n < 0 for deceleration). Austin '05.
-  /// Debug helpers.
+  // Debug helpers.
   bool debug_enabled_ = false; ///< Flag to control whether debug outputs are printed. Remember to also set #if to 0 in DebugHelperForMoveByAngle() in the source (.cpp) file.
   //bool debug_enabled_ = true; ///< Flag to control whether debug outputs are printed. Remember to also set #if to 1 as described above.
   bool debug_helper_accel_initial_vars_printed_ = false; ///< Flag to aid in printing initial debug outputs during acceleration only once.
   bool debug_helper_cspeed_initial_vars_printed_ = false; ///< Flag to aid in printing initial debug outputs during constant speed only once.
   bool debug_helper_decel_initial_vars_printed_ = false; ///< Flag to aid in printing initial debug outputs during deceleration speed only once.
-  /// @}
 };
 
 } // namespace mt
