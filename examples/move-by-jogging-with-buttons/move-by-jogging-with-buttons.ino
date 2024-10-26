@@ -10,52 +10,39 @@
 #include <stepper_driver.h>
 #include <momentary_button.h>
 
-/// @{
-/// @brief GPIO pins.
-const uint8_t kDirectionButtonPin = 2; ///< Direction button pin.
-const uint8_t kMoveButtonPin = 3; ///< Move button pin.
-const uint8_t kPulPin = 11; ///< For the stepper driver PUL/STP/CLK (pulse/step) interface.
-const uint8_t kDirPin = 12; ///< For the stepper driver DIR/CW (direction) interface.
-const uint8_t kEnaPin = 13; ///< For the stepper driver ENA/EN (enable) interface.
-/// @}
+// GPIO pins.
+const uint8_t kDirectionButtonPin = 2; ///< Input pin for the direction button.
+const uint8_t kMoveButtonPin = 3; ///< Input pin for the move button.
+const uint8_t kPulPin = 11; ///< Output pin for the stepper driver PUL/STP/CLK (pulse/step) interface.
+const uint8_t kDirPin = 12; ///< Output pin for the stepper driver DIR/CW (direction) interface.
+const uint8_t kEnaPin = 13; ///< Output pin for the stepper driver ENA/EN (enable) interface.
 
-/// @brief Serial properties.
+// Serial properties.
 const int kBaudRate = 9600; ///< The serial communication speed.
 
-/// @{
-/// @brief Button properties.
-/// The pin states when the buttons are not pressed.
-const mt::MomentaryButton::PinState kDirectionButtonUnpressedPinState = mt::MomentaryButton::PinState::kLow; 
-const mt::MomentaryButton::PinState kMoveButtonUnpressedPinState = mt::MomentaryButton::PinState::kLow;
-/// Button debounce periods (ms).
-const uint16_t kDirectionButtonDebouncePeriod_ms = 20;
-const uint16_t kMoveButtonDebouncePeriod_ms = 20;
-/// Button short press periods (ms).
-const uint16_t kDirectionButtonShortPressPeriod_ms = 500;
-/// @}
+// Button properties.
+const mt::MomentaryButton::PinState kDirectionButtonUnpressedPinState = mt::MomentaryButton::PinState::kLow; ///< Direction button unpressed pin state.
+const mt::MomentaryButton::PinState kMoveButtonUnpressedPinState = mt::MomentaryButton::PinState::kLow; ///< Move button unpressed pin state.
+const uint16_t kDirectionButtonDebouncePeriod_ms = 20; ///< Direction button debounce period (ms).
+const uint16_t kMoveButtonDebouncePeriod_ms = 20; ///< Move button debounce period (ms).
+const uint16_t kDirectionButtonShortPressPeriod_ms = 500; ///< Direction button short press period (ms).
 
-/// @{
-/// @brief Stepper motor/drive system properties.
-const float kFullStepAngle_degrees = 1.8F; ///< The full step angle in degrees. Obtained from the motor data sheet.
-const float kGearRatio = 1.0F; ///< The gear ratio (1 if not using a gearing system or a geared stepper motor).
-/// @}
+// Stepper motor/drive system properties.
+const float kFullStepAngle_degrees = 1.8F; ///< The stepper motor full step angle in degrees. Obtained from the motor data sheet.
+const float kGearRatio = 1.0F; ///< The system/stepper motor gear ratio (1 if not using a gearing system or a geared stepper motor).
 
-/// @{
-/// @brief Stepper driver properties.
+// Stepper driver properties.
 const uint16_t kMicrostepMode = 8; ///< Microstep mode (1/8). Remember to change the setting on the stepper driver to match.
-/// Minimum time (us) to delay after changing the state of a pin. Obtained from the stepper driver data sheet.
-/// These values are for the StepperOnline DM542T stepper driver, but should work for most stepper drivers.
-const float kPulDelay_us = 2.5F; ///< For the PUL pin.
-const float kDirDelay_us = 5.0F; ///< For the Dir pin.
-const float kEnaDelay_us = 5.0F; ///< For the Ena pin.
-/// Speed.
+// Minimum time (us) to delay after changing the state of a pin. Obtained from the stepper driver data sheet.
+// These values are for the StepperOnline DM542T stepper driver, but should work for most stepper drivers.
+const float kPulDelay_us = 2.5F; ///< Minimum delay (us) for the stepper driver PUL pin.
+const float kDirDelay_us = 5.0F; ///< Minimum delay (us) for the stepper driver Dir pin.
+const float kEnaDelay_us = 5.0F; ///< Minimum delay (us) for the stepper driver Ena pin.
+// Speed.
 const float kSpeed_RPM = 20.0; ///< Rotation speed (RPM).
-/// @}
 
-/// @{
-/// @brief Other properties.
+// Other properties.
 const uint16_t kStartupTime_ms = 1000; ///< Minimum startup/boot time in milliseconds (ms); based on the stepper driver.
-/// @}
 
 /// @brief The Momentary Button instance for the direction button.
 mt::MomentaryButton direction_button(kDirectionButtonPin, kDirectionButtonUnpressedPinState, kDirectionButtonDebouncePeriod_ms, kDirectionButtonShortPressPeriod_ms);
