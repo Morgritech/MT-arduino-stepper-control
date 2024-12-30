@@ -1,5 +1,5 @@
 ######################################################
-# Syntax Colouring Map For MT-arduino-momentary-button
+# Syntax Colouring Map For MT-arduino-stepper-driver
 ######################################################
 
 ######################################################
