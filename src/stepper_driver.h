@@ -131,10 +131,10 @@ class StepperDriver {
   /// @param motion_type The type of motion.
   /// @return The status of the motion operation.
   MotionStatus MoveByAngle(float angle, AngleUnits angle_units = AngleUnits::kDegrees,
-                           MotionType motion_type = MotionType::kRelative); ///< This must be called periodically.
+                           MotionType motion_type = MotionType::kRelative); ///< This must be called repeatedly.
 
   /// @brief Move the motor indefinitely (jogging).
-  void MoveByJogging(MotionDirection direction); ///< This must be called periodically.
+  void MoveByJogging(MotionDirection direction); ///< This must be called repeatedly.
 
   /// @brief Get the current angular position.
   /// @param angle_units The units required for the angle.
