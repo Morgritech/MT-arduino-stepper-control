@@ -206,8 +206,8 @@ class StepperDriver {
   double k180DividedByProductOfPiAndMicrostepAngleDegrees_; ///< 180 / (pi x microstep angle in degrees)
   float k6DividedByMicrostepAngleDegrees_; ///< 6 / microstep angle in degrees
   float k360DividedByMicrostepAngleDegrees_; ///< 360 / microstep angle in degrees
-  double kPiTimesMicrostepAngleDegreesDivided180_; ///< (pi x microstep angle in degrees) / 180
-  float kMicrostepAngleDegreesDivided360_; ///< microstep angle in degrees / 360
+  double kPiTimesMicrostepAngleDegreesDividedBy180_; ///< (pi x microstep angle in degrees) / 180
+  float kMicrostepAngleDegreesDividedBy360_; ///< microstep angle in degrees / 360
 
   /// @brief Default acceleration algorithm.
   AccelerationAlgorithm acceleration_algorithm_ = AccelerationAlgorithm::kMorgridge24;
