@@ -24,6 +24,6 @@ Things to note:
 
 A [report](extras/dsdr1001%20Stepper%20Motor%20Control%20Equations%20Issue%2001%2012-09-2024.pdf) showing the equations and algorithms used in the library can be found in the "extras" folder.
 
-Overall, the library is relatively easy to use, and requires very little setup especially if mostly using the built-in defaults. See the "examples" folder for how to get started on using the library.
+Overall, the library is relatively easy to use, and requires very little setup especially if mostly using the built-in defaults. See the [examples](examples) folder for how to get started on using the library.
 
 This library can be installed via the Arduino Library Manager.
