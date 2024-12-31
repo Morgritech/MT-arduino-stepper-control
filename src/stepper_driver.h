@@ -131,15 +131,18 @@ class StepperDriver {
   /// @param motion_type The type of motion.
   /// @return The status of the motion operation.
   MotionStatus MoveByAngle(float angle, AngleUnits angle_units = AngleUnits::kDegrees,
-                           MotionType motion_type = MotionType::kRelative); ///< This must be called periodically.
+                           MotionType motion_type = MotionType::kRelative); ///< This must be called repeatedly.
 
   /// @brief Move the motor indefinitely (jogging).
-  void MoveByJogging(MotionDirection direction); ///< This must be called periodically.
+  void MoveByJogging(MotionDirection direction); ///< This must be called repeatedly.
 
   /// @brief Get the current angular position.
   /// @param angle_units The units required for the angle.
   /// @return The current angular position.
   float GetAngularPosition(AngleUnits angle_units) const;
+
+  /// @brief Reset the angular position to zero.
+  void ResetAngularPosition();
 
   /// @brief Set the acceleration algorithm to be used for acceleration/deceleration.
   /// @param acceleration_algorithm The algorithm.
@@ -206,8 +209,8 @@ class StepperDriver {
   double k180DividedByProductOfPiAndMicrostepAngleDegrees_; ///< 180 / (pi x microstep angle in degrees)
   float k6DividedByMicrostepAngleDegrees_; ///< 6 / microstep angle in degrees
   float k360DividedByMicrostepAngleDegrees_; ///< 360 / microstep angle in degrees
-  double kPiTimesMicrostepAngleDegreesDivided180_; ///< (pi x microstep angle in degrees) / 180
-  float kMicrostepAngleDegreesDivided360_; ///< microstep angle in degrees / 360
+  double kPiTimesMicrostepAngleDegreesDividedBy180_; ///< (pi x microstep angle in degrees) / 180
+  float kMicrostepAngleDegreesDividedBy360_; ///< microstep angle in degrees / 360
 
   /// @brief Default acceleration algorithm.
   AccelerationAlgorithm acceleration_algorithm_ = AccelerationAlgorithm::kMorgridge24;

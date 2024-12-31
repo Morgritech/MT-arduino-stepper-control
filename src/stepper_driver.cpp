@@ -26,8 +26,8 @@ StepperDriver::StepperDriver(uint16_t pul_pin, uint16_t dir_pin, uint16_t ena_pi
   k180DividedByProductOfPiAndMicrostepAngleDegrees_ = 180.0 / (kPi_ * microstep_angle_degrees_);
   k6DividedByMicrostepAngleDegrees_ = 6.0 / microstep_angle_degrees_;
   k360DividedByMicrostepAngleDegrees_ = 360.0 / microstep_angle_degrees_;
-  kPiTimesMicrostepAngleDegreesDivided180_ = (kPi_ * microstep_angle_degrees_) / 180.0;
-  kMicrostepAngleDegreesDivided360_ = microstep_angle_degrees_ / 360.0;
+  kPiTimesMicrostepAngleDegreesDividedBy180_ = (kPi_ * microstep_angle_degrees_) / 180.0;
+  kMicrostepAngleDegreesDividedBy360_ = microstep_angle_degrees_ / 360.0;
 }
 
 StepperDriver::~StepperDriver() {}
@@ -353,16 +353,20 @@ float StepperDriver::GetAngularPosition(AngleUnits angle_units) const {
       break;
     }
     case AngleUnits::kRadians: {
-      angular_position = angular_position_microsteps_ * kPiTimesMicrostepAngleDegreesDivided180_;
+      angular_position = angular_position_microsteps_ * kPiTimesMicrostepAngleDegreesDividedBy180_;
       break;
     }
     case AngleUnits::kRevolutions: {
-      angular_position = angular_position_microsteps_ * kMicrostepAngleDegreesDivided360_;
+      angular_position = angular_position_microsteps_ * kMicrostepAngleDegreesDividedBy360_;
       break;
     }
   }
 
   return angular_position;
+}
+
+void StepperDriver::ResetAngularPosition() {
+  angular_position_microsteps_ = 0;
 }
 
 void StepperDriver::set_acceleration_algorithm(AccelerationAlgorithm acceleration_algorithm) {

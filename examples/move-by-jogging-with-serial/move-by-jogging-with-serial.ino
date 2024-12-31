@@ -42,7 +42,7 @@ const uint16_t kStartupTime_ms = 1000; ///< Minimum startup/boot time in millise
 
 /// @brief Stepper Driver instance for the stepper motor.
 mt::StepperDriver stepper_driver(kPulPin, kDirPin, kEnaPin, kMicrostepMode, kFullStepAngle_degrees, kGearRatio);
-//mt::StepperDriver stepper_driver(kPulPin, kDirPin, kEnaPin); // Default values are used for: microstep mode = 1, full step angle = 1.8, and gear ratio = 1.  
+//mt::StepperDriver stepper_driver(kPulPin, kDirPin, kEnaPin); // Default values: microstep mode = 1, full step angle = 1.8, gear ratio = 1.  
 
 /// @brief The main application entry point for initialisation tasks.
 void setup() {
@@ -139,6 +139,6 @@ void loop() {
 
   // Move the motor.
   if (move_motor == true) {
-    stepper_driver.MoveByJogging(motion_direction); // This must be called periodically.
+    stepper_driver.MoveByJogging(motion_direction); // This must be called repeatedly.
   }
 }

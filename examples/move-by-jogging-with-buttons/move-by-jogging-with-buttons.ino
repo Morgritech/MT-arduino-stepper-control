@@ -39,7 +39,7 @@ const float kPulDelay_us = 2.5F; ///< Minimum delay (us) for the stepper driver 
 const float kDirDelay_us = 5.0F; ///< Minimum delay (us) for the stepper driver Dir pin.
 const float kEnaDelay_us = 5.0F; ///< Minimum delay (us) for the stepper driver Ena pin.
 // Speed.
-const float kSpeed_RPM = 20.0; ///< Rotation speed (RPM).
+const float kSpeed_RPM = 20.0F; ///< Rotation speed (RPM).
 
 // Other properties.
 const uint16_t kStartupTime_ms = 1000; ///< Minimum startup/boot time in milliseconds (ms); based on the stepper driver.
@@ -51,7 +51,7 @@ mt::MomentaryButton move_button(kMoveButtonPin, kMoveButtonUnpressedPinState, kM
 
 /// @brief Stepper Driver instance for the stepper motor.
 mt::StepperDriver stepper_driver(kPulPin, kDirPin, kEnaPin, kMicrostepMode, kFullStepAngle_degrees, kGearRatio);
-//mt::StepperDriver stepper_driver(kPulPin, kDirPin, kEnaPin); // Default values are used for: microstep mode = 1, full step angle = 1.8, and gear ratio = 1.  
+//mt::StepperDriver stepper_driver(kPulPin, kDirPin, kEnaPin); // Default values: microstep mode = 1, full step angle = 1.8, gear ratio = 1.  
 
 /// @brief The main application entry point for initialisation tasks.
 void setup() {
@@ -96,7 +96,7 @@ void loop() {
   static mt::StepperDriver::MotionDirection motion_direction = mt::StepperDriver::MotionDirection::kPositive;
 
   // Detect state change on the move button pin.
-  mt::MomentaryButton::ButtonState move_button_state = move_button.DetectStateChange(); // This must be called periodically.
+  mt::MomentaryButton::ButtonState move_button_state = move_button.DetectStateChange(); // This must be called repeatedly.
 
   if (move_button_state == mt::MomentaryButton::ButtonState::kPressed) {
     move_motor = true;
@@ -109,7 +109,7 @@ void loop() {
   }
 
   // Detect press type on the direction button pin.
-  mt::MomentaryButton::PressType direction_button_press_type = direction_button.DetectPressType(); // This must be called periodically.
+  mt::MomentaryButton::PressType direction_button_press_type = direction_button.DetectPressType(); // This must be called repeatedly.
 
   if (direction_button_press_type == mt::MomentaryButton::PressType::kShortPress) {
     if (motion_direction == mt::StepperDriver::MotionDirection::kPositive) {
@@ -124,6 +124,6 @@ void loop() {
 
   // Move the motor.
   if (move_motor == true) {
-    stepper_driver.MoveByJogging(motion_direction); // This must be called periodically.
+    stepper_driver.MoveByJogging(motion_direction); // This must be called repeatedly.
   }
 }
