@@ -141,6 +141,9 @@ class StepperDriver {
   /// @return The current angular position.
   float GetAngularPosition(AngleUnits angle_units) const;
 
+  /// @brief Reset the angular position to zero.
+  void ResetAngularPosition();
+
   /// @brief Set the acceleration algorithm to be used for acceleration/deceleration.
   /// @param acceleration_algorithm The algorithm.
   void set_acceleration_algorithm(AccelerationAlgorithm acceleration_algorithm);
