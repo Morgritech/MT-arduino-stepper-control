@@ -241,7 +241,7 @@ class StepperDriver {
   // Power.
   PowerState power_state_ = PowerState::kEnabled; ///< Power state based on the ENA/EN pin.
   // Position/distance.
-  uint32_t angular_position_microsteps_ = 0; ///< The current angular position (microsteps).
+  int64_t angular_position_microsteps_ = 0; ///< The current angular position (microsteps).
   uint32_t relative_angle_to_move_microsteps_ = 0; ///< Target distance/angle (microsteps) to move the motor relative to the current angular position.
   uint32_t relative_angle_to_move_in_flux_microsteps_ = 0; ///< The distance/angle (microsteps) to move that is reducing due to the motor moving.
   int8_t angular_position_updater_microsteps_ = 1; ///< Value (microsteps) to increment/decrement the current angular position depending on motor motion direction based on the DIR/CW pin.
