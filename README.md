@@ -22,7 +22,7 @@ Things to note:
 - When using a "move by angle" command with acceleration/deceleration (i.e., acceleration is non-zero), if the speed or acceleration is changed during motion (i.e., before the move command is completed), the current behaviour of the library is to pause the motion abruptly and resume the motion with a new acceleration. This happens relatively quickly and may not be noticeable for most applications depending on the set speed and acceleration.
 - When using a "move by jogging" command, only constant speed motion is used (i.e., acceleration/deceleration is ignored). This is because the library cannot know when the user will issue a change of direction or stop instruction, and therefore cannot calculate the appropriate speed profile.
 
-A [report](extras/dsdr1001%20Stepper%20Motor%20Control%20Equations%20Issue%2001%2012-09-2024.pdf) showing the equations and algorithms used in the library can be found in the "extras" folder.
+A [report](extras/dsdr1001%20Stepper%20Motor%20Control%20Equations%20Issue%2001%2012-09-2024.pdf) showing the equations and algorithms used in the library can be found in the [extras](extras) folder.
 
 Overall, the library is relatively easy to use, and requires very little setup especially if mostly using the built-in defaults. See the [examples](examples) folder for how to get started on using the library.
 
