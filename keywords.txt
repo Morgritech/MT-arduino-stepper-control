@@ -28,6 +28,7 @@ CalculateRelativeMicrostepsToMoveByAngle	KEYWORD2
 MoveByAngle	KEYWORD2
 MoveByJogging	KEYWORD2
 GetAngularPosition	KEYWORD2
+ResetAngularPosition	KEYWORD2
 set_acceleration_algorithm	KEYWORD2
 set_ena_pin_enabled_state	KEYWORD2
 set_dir_pin_positive_direction_state	KEYWORD2
